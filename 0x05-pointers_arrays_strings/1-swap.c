@@ -1,18 +1,16 @@
-#include "main.h"
-#include <stdio.h>
+#include "holberton.h"
 
 /**
- * main - check the code
- * 
- * return Always 0
+ * swap_int -  a function that swaps the values of two integers.
+ * @a: an inout integer pointer
+ * @b: an input integer pointer
+ * Return: Nothing
  */
-
-int main(void)
+void swap_int(int *a, int *b)
 {
-    char *str;
-    int len;
-    str = "My first strlen!"
-    printf("%d\n",len);
-    return(0);
-    
+	int aux;
+
+	aux = *a;
+	*a = *b;
+	*b = aux;
 }
