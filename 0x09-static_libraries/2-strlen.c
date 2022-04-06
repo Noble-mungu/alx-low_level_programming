@@ -1,15 +1,19 @@
-#include "holberton.h"
+#include "main.h"
 
 /**
- * _strlen -  a function that returns the length of a string.
- * @s: An input string
- * Return: Nothing
- */
+  * _strlen - Returns the length of a string
+  * @s: String to count
+  *
+  * Return: String length
+  */
 int _strlen(char *s)
 {
-	int len = 0;
+	int c = 0;
 
-	while (s[len] != '\0')
-		len++;
-	return (len);
+	for (; *s != '\0'; s++)
+	{
+		c++;
+	}
+
+	return (c);
 }
