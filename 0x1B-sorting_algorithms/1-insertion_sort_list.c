@@ -1,52 +1,61 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - Sorts integers using Insertion sort algorithm.
- * @list: List of data.
+ * len_list - returns the length of a linked list
+ * @h: pointer to the list
  *
- * Return: void.
-**/
+ * Return: length of list
+ */
+int len_list(listint_t *h)
+{
+	int len = 0;
 
+	while (h)
+	{
+		len++;
+		h = h->next;
+	}
+	return (len);
+}
+
+/**
+ * insertion_sort_list - sorts a linked list with the Insert Sort algorithm
+ * @list: double pointer to the list to sort
+ */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *tmp;
-	int var;
+	listint_t *curr = NULL, *one = NULL;
+	listint_t *two = NULL, *three = NULL, *four = NULL;
 
-	if (list == NULL || *list == NULL)
+	if (!list || !(*list) || len_list(*list) < 2)
 		return;
-	if ((*list)->next == NULL)
-		return;
-	current = *list;
-	while (current != NULL)
+
+	curr = *list;
+
+	while (curr)
 	{
-		if (current == *list)
-			current = current->next;
-		else
+		if (curr->prev && curr->n < curr->prev->n)
 		{
-			tmp = current;
-			var = current->n;
-			current = current->next;
-			while (tmp->prev->n > var && tmp->prev != NULL)
-			{
-				tmp->prev->next = tmp->next;
-				if (tmp->next != NULL)
-					tmp->next->prev = tmp->prev;
-				if (tmp->prev->prev != NULL)
-				{ tmp->prev->prev->next = tmp;
-					tmp->next = tmp->prev;
-					tmp->prev = tmp->prev->prev;
-					tmp->next->prev = tmp;
-					print_list(*list);
-				}
-				else
-				{ tmp->next = tmp->prev;
-					tmp->prev = NULL;
-					tmp->next->prev = tmp;
-					*list = tmp;
-					print_list(*list);
-					break;
-				}
-			}
+			one = curr->prev->prev;
+			two = curr->prev;
+			three = curr;
+			four = curr->next;
+
+			two->next = four;
+			if (four)
+				four->prev = two;
+			three->next = two;
+			three->prev = one;
+			if (one)
+				one->next = three;
+			else
+				*list = three;
+			two->prev = three;
+			curr = *list;
+			print_list(*list);
+			continue;
 		}
+		else
+			curr = curr->next;
 	}
 }
